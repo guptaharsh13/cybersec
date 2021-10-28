@@ -64,6 +64,28 @@ def xor(*args):
     return temp
 
 
+def binaryToHex(binary):
+    if not len(binary) % 4 == 0:
+        print("invalid input in binaryToHex")
+        exit(0)
+    hex = ""
+    temp = []
+    count = 0
+    group = ""
+    for ch in binary:
+        count += 1
+        group += ch
+        if count == 4:
+            count = 0
+            temp.append(group)
+            group = ""
+
+    for group in temp:
+        hex += binary_to_hex[group]
+
+    return hex
+
+
 def sigma0512(input):
     binary = hexToBinary(input)
     rotr28 = rotr(binary, 28)
@@ -74,7 +96,9 @@ def sigma0512(input):
     print(f"ROTR34 value = {addSpacing(rotr34)}")
     print(f"ROTR39 value = {addSpacing(rotr39)}")
 
-    print(f"sigma value = {addSpacing(xor(rotr28, rotr34, rotr39))}")
+    res = xor(rotr28, rotr34, rotr39)
+    print(f"sigma value = {addSpacing(res)}")
+    print(f"hexadecimal value = {binaryToHex(res)}")
 
 
 def sigma1512(input):
@@ -87,7 +111,9 @@ def sigma1512(input):
     print(f"ROTR18 value = {addSpacing(rotr18)}")
     print(f"ROTR41 value = {addSpacing(rotr41)}")
 
-    print(f"sigma value = {addSpacing(xor(rotr14, rotr18, rotr41))}")
+    res = xor(rotr14, rotr18, rotr41)
+    print(f"sigma value = {addSpacing(res)}")
+    print(f"hexadecimal value = {binaryToHex(res)}")
 
 
 def sd0512(input):
@@ -100,7 +126,9 @@ def sd0512(input):
     print(f"ROTR8 value = {addSpacing(rotr8)}")
     print(f"SHR7 value = {addSpacing(shr7)}")
 
-    print(f"sd value = {addSpacing(xor(rotr1, rotr8, shr7))}")
+    res = xor(rotr1, rotr8, shr7)
+    print(f"sd value = {addSpacing(res)}")
+    print(f"hexadecimal value = {binaryToHex(res)}")
 
 
 def sd0512(input):
@@ -113,7 +141,9 @@ def sd0512(input):
     print(f"ROTR61 value = {addSpacing(rotr61)}")
     print(f"SHR6 value = {addSpacing(shr6)}")
 
-    print(f"sd value = {addSpacing(xor(rotr19, rotr61, shr6))}")
+    res = xor(rotr19, rotr61, shr6)
+    print(f"sd value = {addSpacing(res)}")
+    print(f"hexadecimal value = {binaryToHex(res)}")
 
 
 def main():
@@ -131,8 +161,6 @@ def main():
     func = eval(functions[choice-1])
     func(hex)
 
-
-# sigma0512("ABCDEF0123456789")
 
 if __name__ == "__main__":
     main()
