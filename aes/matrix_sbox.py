@@ -1,4 +1,4 @@
-from aes_sbox import sbox, inv_sbox
+from aes_tables import *
 
 
 def performSbox(hex):
